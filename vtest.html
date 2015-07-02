@@ -13,11 +13,12 @@
         <form name="myForm" novalidate ng-submit="addUser(newUser)">
             <div class="well">
                 <div class="form-group">
-                    <label>Birthplace:</label>
-                    <select class="form-control" ng-model="selectedCountry"
-                        ng-options="countryOption for countryOption in countries">
-                        <option value="">Show All</option>
-                    </select>
+                    <label>Birthplace:
+                        <select class="form-control" ng-model="selectedCountry"
+                            ng-options="countryOption for countryOption in countries">
+                            <option value="">Show All</option>
+                        </select>
+                    </label>
                 </div>
 
                 <div class="form-group">

@@ -2,16 +2,16 @@ angular.module("exampleApp", ['ngResource'])
 	.filter("currencyConvert", function($log) {
 		return function(value, selectedCurrencyValue) {			
 			// $log.debug("value = " + angular.toJson(value));
-			return selectedCurrencyValue * value;
+			return (value / selectedCurrencyValue).toFixed();
 		}
 	})
 	.controller("celebrityCtrl", function($scope, $resource, $log) {
-		var celebrities_ajax = $resource('http://localhost\\:8000/celebrityRichList.json');
+		// var celebrities_ajax = $resource('http://localhost\\:8000/celebrityRichList.json');
+		var celebrities_ajax = $resource('celebrityRichList.json');
+
 		$scope.celebrities = [];
 
-		celebrities_ajax.get(function(resp) {
-			$log.debug("###### get()");
-			
+		celebrities_ajax.get(function(resp) {		
 			$scope.celebrities = resp.celebrityList;
 			
 			$scope.currencies = [
@@ -34,7 +34,7 @@ angular.module("exampleApp", ['ngResource'])
 						|| item.country.search($scope.searchText) > -1
 			} else {
 				return ('' + item.rank).search('' + $scope.searchText) > -1
-						|| ('' + item.netWorth  * $scope.selectedCurrency.value).search('' + $scope.searchText) > -1
+						|| ('' + (item.netWorth / $scope.selectedCurrency.value).toFixed()).search('' + $scope.searchText) > -1
 						|| ('' + item.age).search('' + $scope.searchText) > -1
 			}
 		}
